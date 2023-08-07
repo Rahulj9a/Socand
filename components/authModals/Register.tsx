@@ -1,32 +1,33 @@
-import React from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+ 
+import React, { useState } from 'react'
+import { toast } from "react-hot-toast";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
+ 
 
+import axios from "axios"
+import { Button } from '../ui/button'
+import { signIn, useSession } from 'next-auth/react'
 const Register = () => {
+  const [isLoading, setisLoading] = useState(false)
+  
+
+   
+
   return (
-    <Card>
-    <CardHeader>
-      <CardTitle>Register</CardTitle>
-      <CardDescription>
-        Don't have an account yet, Let's create it.
-      </CardDescription>
-    </CardHeader>
-    <CardContent className="space-y-2">
-      <div className="space-y-1">
-        <Label htmlFor="current">Current password</Label>
-        <Input id="current" type="password" />
-      </div>
-      <div className="space-y-1">
-        <Label htmlFor="new">New password</Label>
-        <Input id="new" type="password" />
-      </div>
-    </CardContent>
-    <CardFooter>
-      <Button>Save password</Button>
-    </CardFooter>
-  </Card>
+    <Card >
+      <CardHeader>
+        <CardTitle>Register</CardTitle>
+        <CardDescription>
+          Don't have an account yet, Let's create it.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <Button disabled={isLoading} onClick={()=>signIn('google')}>Register with Goggle</Button>
+      </CardContent>
+      {/* <CardFooter>
+        <Button>Save password</Button>
+      </CardFooter> */}
+    </Card>
   )
 }
 
