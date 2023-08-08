@@ -19,4 +19,13 @@ model User {
   profileImage String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  urls         Url[]
+}
+
+model Url {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
+  value  String
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
