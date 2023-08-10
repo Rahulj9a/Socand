@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { signIn } from "next-auth/react";
 
 const AuthModal = () => {
+  
   return (
     
        <Card>

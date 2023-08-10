@@ -1,9 +1,11 @@
-"use client"
+ 
 import { Metadata } from "next"
 import Image from "next/image"
 
 import { Separator } from "@/components/ui/separator"
 import { SidebarNav } from "./components/SideBarNav"
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "Forms",
@@ -37,7 +39,13 @@ interface SettingsLayoutProps {
   children: React.ReactNode
 }
 
-export default function SettingsLayout({ children }: SettingsLayoutProps) {
+export default async function SettingsLayout({ children }: SettingsLayoutProps) {
+
+    const session = await getServerSession()
+    if(!session?.user?.email){
+      redirect("/")
+    }
+
   return (
     <>
       <div className="md:hidden">

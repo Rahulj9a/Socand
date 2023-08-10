@@ -1,7 +1,9 @@
 import { Separator } from "@/components/ui/separator"  
 import { ProfileForm } from "./ProfileForm"  
+import { useSession } from "next-auth/react"
 
 export default function SettingsProfilePage() {
+   
   return (
     <div className="space-y-6">
       <div>
