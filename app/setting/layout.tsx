@@ -41,11 +41,7 @@ interface SettingsLayoutProps {
 
 export default async function SettingsLayout({ children }: SettingsLayoutProps) {
 
-    const session = await getServerSession()
-    if(!session?.user?.email){
-      redirect("/")
-    }
-
+     
   return (
     <>
       <div className="md:hidden">

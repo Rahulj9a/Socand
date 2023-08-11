@@ -4,6 +4,7 @@ import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 import * as z from "zod"
+import usecurrentUser from "@/hooks/useCurrentUser"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -30,7 +31,7 @@ import { useSession } from "next-auth/react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { redirect } from "next/navigation"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const profileFormSchema = z.object({
   name: z
@@ -76,7 +77,7 @@ const profileFormSchema = z.object({
 
 
 export function ProfileForm() {
-  const [isLoading, setisLoading] = useState(false)
+  const [Loading, setLoading] = useState(false)
 
   const session = useSession()
   if (session.status === "unauthenticated") {
@@ -84,16 +85,22 @@ export function ProfileForm() {
   }
 
   const user = session.data?.user
+   
+  const {data:currentUser, error, isLoading }= usecurrentUser()
+  
+  
+   
+   
 
-
-
+  
+  
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: "",
-      username: "",
-      bio: ""
+      name: currentUser?.name || user?.name || "",
+      username: currentUser?.username as string || "steve",
+      bio:currentUser?.bio || ""
     },
 
     mode: "onChange",
@@ -106,7 +113,7 @@ export function ProfileForm() {
 
   async function onSubmit(values: z.infer<typeof profileFormSchema>) {
     try {
-      setisLoading(true);
+      setLoading(true);
 
       await axios.post("/api/register", values);
 
@@ -116,7 +123,7 @@ export function ProfileForm() {
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
-      setisLoading(false);
+      setLoading(false);
     }
 
   }
@@ -134,7 +141,7 @@ export function ProfileForm() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your Name"  {...field} />
+                  <Input placeholder="Your Name" id="name"  {...field} />
                 </FormControl>
                 <FormDescription>
                   This will be shown on your profile, Name can be changed anytime
@@ -150,7 +157,7 @@ export function ProfileForm() {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your unique Username" {...field} />
+                  <Input placeholder="Your unique Username" disabled={currentUser} {...field} />
                 </FormControl>
                 <FormDescription>
                   This will be used to visit your profile through URL, Username should be unique
@@ -195,6 +202,7 @@ export function ProfileForm() {
                 <FormControl>
                   <Textarea
                     placeholder="Tell us a little bit about yourself"
+                    id="bio"
                     className="resize-none"
                     {...field}
                   />
@@ -265,7 +273,7 @@ export function ProfileForm() {
 
             </div>
           </div>
-          <Button disabled={isLoading || session.status === "loading"} type="submit">Update profile</Button>
+          <Button disabled={Loading || session.status === "loading"} type="submit">Update profile</Button>
         </form>
       </Form>
 
