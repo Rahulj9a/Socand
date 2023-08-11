@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Code, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React from "react";
 
 const tools = [
@@ -47,6 +47,7 @@ const tools = [
 ];
 
 const page = () => {
+  const router = useRouter()
   const session = useSession();
   if (session.status === "loading") {
     return (
@@ -73,6 +74,7 @@ const page = () => {
           <Card
             key={tool.href}
             className="p-4 border-black/5 flex items-center justify-between cursor-pointer hover:shadow-md transition"
+            onClick={()=>router.push(tool.href)}
           >
             <div className="flex items-center gap-x-4">
                <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
