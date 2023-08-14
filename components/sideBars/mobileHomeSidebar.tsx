@@ -3,10 +3,11 @@ import React, { ReactComponentElement, ReactElement, useEffect, useState } from 
 import { Button } from "@/components/ui/button";
 import { Menu, } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import SidebarAi from "./sidebarAi";
+ 
+import HomeSidebar from "./homeSideBar";
 
  
-const MobileSidebarAi  = ( ) => {
+const MobileSidebarHome  = ( ) => {
     const [isMounted, setIsMounted] = useState(false)
     useEffect(()=>{
         setIsMounted(true)
@@ -23,11 +24,11 @@ const MobileSidebarAi  = ( ) => {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="p-0">
-                     <SidebarAi/>
+                     <HomeSidebar/>
                 </SheetContent>
             </Sheet>
         </div>
     );
 };
 
-export default MobileSidebarAi;
+export default MobileSidebarHome;

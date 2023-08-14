@@ -2,7 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import {
+    Activity,
+    BrainCircuit,
   Code,
+  Edit,
   Home,
   ImageIcon,
   LayoutDashboard,
@@ -16,64 +19,44 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
- 
-
 const routes = [
   {
     label: "Home",
     icon: Home,
     href: "/home",
-    color: "text-sky-500",
-  },
-  {
-    label: "AI Dashboard",
-    icon: LayoutDashboard,
-    href: "/ai",
-    color: "text-sky-500",
-  },
-  {
-    label: "Conversation",
-    icon: MessageSquare,
-    href: "/ai/conversation",
     color: "text-violet-500",
   },
   {
-    label: "Image Generation",
-    icon: ImageIcon,
-    href: "/ai/imagegen",
+    label: "Analytics",
+    icon: Activity,
+    href: "/dashboard",
+    color: "text-sky-500",
+  },
+  {
+    label: "Edit content",
+    icon: Edit,
+    href: "/edit",
     color: "text-pink-700",
   },
   {
-    label: "Video Generation",
-    icon: VideoIcon,
-    href: "/ai/videogen",
-    color: "text-orange-700",
-  },
-  {
-    label: "Music Generation",
-    icon: Music,
-    href: "/ai/musicgen",
-    color: "text-emerald-500",
-  },
-  {
-    label: "Code Generation",
-    icon: Code,
-    href: "/ai/codegen",
-    color: "text-green-700",
+    label: "AI",
+    icon: BrainCircuit,
+    href: "/edit",
+    color: "text-indigo-700",
   },
   {
     label: "Settings",
     icon: SettingsIcon,
-    href: "/ai/setting",
+    href: "/setting",
   },
 ];
 
-const SidebarAi = () => {
+const HomeSidebar = () => {
   const pathname = usePathname();
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-[#111827]">
       <div className="px-3 py-2 flex-1">
-        <div className="relative w-1/2 h-auto mr-4  pl-3 mb-4 ">
+        <div className="relative w-1/2 h-auto mr-4  pl-3 mb-4 bg-">
           <Link href="/home">
             <Image
               alt="Logo"
@@ -107,4 +90,4 @@ const SidebarAi = () => {
   );
 };
 
-export default SidebarAi;
+export default HomeSidebar;
