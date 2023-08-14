@@ -10,15 +10,17 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   const session = useSession();
   const router = useRouter()
-  const { data: currentUser, isLoading } = usecurrentUser()
-  
+  if (session.status==="authenticated") {
+    redirect('/setting/profile')
+  }
+
 
   return (
     <div className="flex items-center">
       <div className="flex-1"></div>
-      {!currentUser ? <div className="fixed m-auto right-0 top-0 w-2/5 h-screen p-5 flex items-center bottom-0">
-        {session.status == "loading" ? skeltonStruct :  <AuthModal /> }
-      </div> : ""}
+      {<div className="fixed m-auto right-0 top-0 w-2/5 h-screen p-5 flex items-center bottom-0">
+        {session.status == "loading" ? skeltonStruct : <AuthModal />}
+      </div>}
     </div>
   );
 }

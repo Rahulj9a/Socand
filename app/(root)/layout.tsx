@@ -14,7 +14,9 @@ export default async function SetupLayout({
 
     const {currentUser} = await serverAuth()
     
-    
+    if(currentUser){
+        redirect('/home')
+    }
 
 
     return (
